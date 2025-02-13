@@ -1,6 +1,7 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+" Plugin management
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -11,12 +12,16 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 
-" Theme plugin: Dracula
-Plug 'dracula/vim', { 'as': 'dracula' }
+" Themes
+Plug 'tomasiser/vim-code-dark'  " VS Code Dark Theme
+
+" Codeium AI Plugin
+Plug 'Exafunction/codeium.vim'
 
 call plug#end()
 
 " Key mappings
+let mapleader = " "
 inoremap jk <ESC>
 nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
@@ -25,7 +30,7 @@ nmap ++ <plug>NERDCommenterToggle
 " Theme configuration
 syntax enable
 set background=dark
-colorscheme dracula
+colorscheme codedark
 
 " NERDTree settings
 let g:NERDTreeGitStatusWithFlags = 1
@@ -37,9 +42,9 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-json',
   \ ]
 
 " General settings
@@ -109,3 +114,20 @@ augroup mygroup
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+" Codeium configuration
+let g:codeium_disable_bindings = 1
+
+" Custom keybindings for Codeium
+imap <C-l> <Plug>CodeiumAccept   " Accept suggestion
+imap <C-]> <Plug>CodeiumNext    " Next suggestion
+imap <C-p> <Plug>CodeiumPrev    " Previous suggestion (changed from <C-[>)
+
+
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
