@@ -13,7 +13,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Themes
-Plug 'tomasiser/vim-code-dark'  " VS Code Dark Theme
+Plug 'projekt0n/github-nvim-theme'  " GitHub Dark Theme
 
 " Codeium AI Plugin
 Plug 'Exafunction/codeium.vim'
@@ -30,7 +30,7 @@ nmap ++ <plug>NERDCommenterToggle
 " Theme configuration
 syntax enable
 set background=dark
-colorscheme codedark
+colorscheme github_dark_default
 
 " NERDTree settings
 let g:NERDTreeGitStatusWithFlags = 1
@@ -48,7 +48,6 @@ let g:coc_global_extensions = [
   \ ]
 
 " General settings
-set relativenumber
 set number
 set smarttab
 set cindent
@@ -119,11 +118,11 @@ augroup end
 let g:codeium_disable_bindings = 1
 
 " Custom keybindings for Codeium
-imap <C-l> <Plug>CodeiumAccept   " Accept suggestion
-imap <C-]> <Plug>CodeiumNext    " Next suggestion
-imap <C-p> <Plug>CodeiumPrev    " Previous suggestion (changed from <C-[>)
+imap <C-l> <Plug>CodeiumAccept
+imap <C-]> <Plug>CodeiumNext
+imap <C-p> <Plug>CodeiumPrev
 
-
+" Move lines up/down
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
