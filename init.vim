@@ -1,3 +1,7 @@
+" =========================
+" init.vim
+" =========================
+
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
@@ -13,31 +17,39 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Themes
-Plug 'projekt0n/github-nvim-theme'  " GitHub Dark Theme
+Plug 'projekt0n/github-nvim-theme'
 
-" Codeium AI Plugin
-Plug 'Exafunction/codeium.vim'
+" GitHub Copilot inline suggestions
+Plug 'github/copilot.vim'
 
 call plug#end()
 
+" =========================
 " Key mappings
+" =========================
 let mapleader = " "
 inoremap jk <ESC>
 nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
+" =========================
 " Theme configuration
+" =========================
 syntax enable
 set background=dark
 colorscheme github_dark_default
 
+" =========================
 " NERDTree settings
+" =========================
 let g:NERDTreeGitStatusWithFlags = 1
 let g:NERDTreeIgnore = ['^node_modules$']
 nnoremap <C-n> :NERDTreeToggle<CR>
 
+" =========================
 " Coc.nvim configuration
+" =========================
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-pairs',
@@ -73,17 +85,21 @@ endfunction
 
 autocmd BufEnter * call SyncTree()
 
+" =========================
 " Coc.nvim key mappings
+" =========================
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -92,14 +108,19 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
 nmap <F2> <Plug>(coc-rename)
 xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format-selected)
+
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>e :<C-u>CocList extensions<cr>
 nnoremap <silent> <space>c :<C-u>CocList commands<cr>
@@ -114,15 +135,19 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Codeium configuration
-let g:codeium_disable_bindings = 1
+" =========================
+" GitHub Copilot inline config
+" =========================
+let g:copilot_no_tab_map = v:true
+" Keybindings for inline Copilot
+imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+imap <C-]> <Plug>(copilot-next)
+imap <C-p> <Plug>(copilot-previous)
+imap <C-o> <Plug>(copilot-dismiss)
 
-" Custom keybindings for Codeium
-imap <C-l> <Plug>CodeiumAccept
-imap <C-]> <Plug>CodeiumNext
-imap <C-p> <Plug>CodeiumPrev
-
+" =========================
 " Move lines up/down
+" =========================
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
