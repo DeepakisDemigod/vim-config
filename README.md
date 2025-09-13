@@ -1,5 +1,7 @@
 
-# My Vim Configuration
+## My Vim Configuration
+
+![vim with copilot demo](https://raw.githubusercontent.com/DeepakisDemigod/vim-config/refs/heads/master/Screenshot_2025-09-13-17-29-05-85_84d3000e3f4017145260f7618db1d683.jpg)
 
 > By deepakisdemigod
 
